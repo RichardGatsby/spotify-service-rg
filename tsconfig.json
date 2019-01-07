@@ -16,6 +16,14 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "spotify-service-rg": [
+        "dist/spotify-service-rg"
+      ],
+      "spotify-service-rg/*": [
+        "dist/spotify-service-rg/*"
+      ]
+    }
   }
 }
