@@ -1,6 +1,13 @@
 {
   "name": "spotify-service-rg",
-  "version": "1.0.0",
+  "version": "1.0.2",
+  "description": "This is a Angular service for connecting to and using Spotify API.",
+  "keywords" :["Angular","Spotify", "SpotifyAPI"],
+  "license" : "SEE LICENSE IN LICENSE",
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/RichardGatsby/spotify-service-rg"
+  },
   "peerDependencies": {
     "@angular/common": "^7.0.0",
     "@angular/core": "^7.0.0"
