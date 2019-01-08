@@ -38,6 +38,21 @@ export class SpotifyRgService {
     this.token = token;
   }
 
+  /** @description Returns track
+ * @param artistId Tracks Spotify ID
+ */
+  public getTrack(trackId: string) {
+    return this.apiGet("/tracks/" + trackId, null, this.getHeaders());
+  }
+
+  /** @description Returns tracks
+  * @param artistId Comma separated list of track ID's in a string.
+  */
+  public getTracks(trackIds: string) {
+    const t = encodeURIComponent(trackIds);
+    return this.apiGet("/tracks/?ids=" + t, null, this.getHeaders());
+  }
+
   /** @description Returns album
   * @param artistId Albums Spotify ID.
   */
@@ -49,7 +64,8 @@ export class SpotifyRgService {
   * @param artistId Comma separated list of album ID's in a string..
   */
   public getAlbums(albumIds: string) {
-    return this.apiGet("/albums/?ids=" + albumIds, null, this.getHeaders());
+    const a = encodeURIComponent(albumIds);
+    return this.apiGet("/albums/?ids=" + a, null, this.getHeaders());
   }
 
   /** @description Returns albums tracks
@@ -70,7 +86,8 @@ export class SpotifyRgService {
   * @param artistId Comma separated list of artist ID's in a string.
   */
   public getArtists(artistIds: string) {
-    return this.apiGet("/artists/?ids=" + artistIds, null, this.getHeaders());
+    const a = encodeURIComponent(artistIds);
+    return this.apiGet("/artists/?ids=" + a, null, this.getHeaders());
   }
 
   /** @description Returns artists albums
@@ -85,8 +102,8 @@ export class SpotifyRgService {
   * @param countryCode Country code in 2 char Format. For example FI. Defaults to extracting country code from token.
   */
   public getArtistsTopTracks(artistId: string, countryCode?: string) {
-    var countryCode = (countryCode != null && countryCode.length == 2)? countryCode: "from_token";
-    return this.apiGet("/artists/" + artistId + "/top-tracks?country="+countryCode, null, this.getHeaders());
+    var countryCode = (countryCode != null && countryCode.length == 2) ? countryCode : "from_token";
+    return this.apiGet("/artists/" + artistId + "/top-tracks?country=" + countryCode, null, this.getHeaders());
   }
 
   /** @description Returns users top tracks
@@ -100,6 +117,23 @@ export class SpotifyRgService {
       'limit': count == null ? '50' : count
     }
     return this.apiGet("/me/top/tracks", params, this.getHeaders());
+  }
+
+  /** @description Returns users playlists
+  * @param userId Users Spotify Id
+  */
+  public getUsersPlaylists(userId: string) {
+    return this.apiGet('/users/' + userId + '/playlists', null, this.getHeaders());
+  }
+
+  /** @description Returns recommendations based on seeds. Max 5 seeds allowed (thats total so for example 3 artists and 2 tracks)
+  * @param seedArtists Comma separated list of artist seed Ids
+  * @param seedTracks Comma separated list of track seed Ids
+  */
+  public getRecommendedTracks(seedArtists: string, seedTracks: string): any {
+    const sA = encodeURIComponent(seedArtists);
+    const sT = encodeURIComponent(seedTracks);
+    return this.apiGet('/recommendations?limit=50&seed_artists=' + sA + '&seed_tracks=' + sT, null, this.getHeaders());
   }
 
   /** @description Creates a playlist 
@@ -128,6 +162,16 @@ export class SpotifyRgService {
     return this.apiPost('/playlists/' + playListId + '/tracks', body, this.getHeaders());
   }
 
+  /** @description Returns Spotify Catalog information about artists, albums, tracks or playlists that match a keyword string.
+  * @param query Search word.
+  * @param type A comma-separated list of item types to search across. Valid types are album, artist, playlist, and track.
+  * @param count The count is applied within each type, not on the total response. So count 3 with type album,track returns 3 albums and 3 tracks. Max 50.
+  */
+  public search(query: string, types: string, count: string) {
+    const q = encodeURIComponent(query);
+    const t = encodeURIComponent(types);
+    return this.apiGet('/search?q=' + q + '&type=' + t + '&limit=' + count, null, this.getHeaders());
+  }
 
 
   private apiGet(endpoint: string, params, headers) {
