@@ -46,7 +46,7 @@ this.spotifyService.setCallBackUrl("http://localhost:4200/callback");
 this.spotifyService.setToken(localStorage.getItem('spotify-token'));
 ```
 
-Most of the methods required authentication which basically means you need to login to get the token.
+Most of the methods require authentication which basically means you need to login to get the token.
 To use the login method you need to have clientId, scopes and callBackUrl configured.
 Personally I like to create a callback component that extracts the token from the response.
 ```
