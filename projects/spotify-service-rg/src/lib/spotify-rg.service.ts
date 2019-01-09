@@ -107,12 +107,19 @@ export class SpotifyRgService {
   }
 
   /** @description Returns the user assosiated with auth token
+  * @param userId The Spotify User id
+  */
+  public getUserById(userId: string) {
+    return this.apiGet('/users/' + userId, null, this.getHeaders());
+  }
+
+  /** @description Returns the user assosiated with auth token
   */
   public getUser() {
     return this.apiGet('/me', null, this.getHeaders());
   }
 
-  /** @description Returns users top tracks
+  /** @description Returns current users top tracks
   * @param timeRange The range of time results are returned from. Use short_term, medium_term or long_term. Defaults to long_term.
   * @param count Amount of tracks returned. Max value 50. Defaults to 50. 
   */
@@ -140,6 +147,79 @@ export class SpotifyRgService {
     const sA = encodeURIComponent(seedArtists);
     const sT = encodeURIComponent(seedTracks);
     return this.apiGet('/recommendations?limit=50&seed_artists=' + sA + '&seed_tracks=' + sT, null, this.getHeaders());
+  }
+
+  /** @description Get a list of new album releases featured in Spotify 
+  * @param countryCode Country code in 2 char Format. If not set searches from all.
+  * @param count Amount of results returned. Defaults to 20.
+  */
+  public getNewReleases(countryCode?: string, count?: string) {
+    var query = "";
+    if (countryCode != null && countryCode != "") {
+      query += "?country=" + countryCode;
+    }
+    if (count != null && count != "") {
+      query += (query.length == 0) ? "?" : "&";
+      query += "limit=" + count;
+    }
+    return this.apiGet('/browse/new-releases' + query, null, this.getHeaders());
+  }
+
+  /** @description Get a list of Spotify featured playlists
+  * @param countryCode Country code in 2 char Format. If not set searches from all.
+  * @param count Amount of results returned. Defaults to 20.
+  */
+  public getFeaturedPlaylists(countryCode?: string, count?: string) {
+    var query = "";
+    if (countryCode != null && countryCode != "") {
+      query += "?country=" + countryCode;
+    }
+    if (count != null && count != "") {
+      query += (query.length == 0) ? "?" : "&";
+      query += "limit=" + count;
+    }
+    return this.apiGet('/browse/featured-playlists' + query, null, this.getHeaders());
+  }
+
+  /** @description Get a single category used to tag items in Spotify 
+  * @param categoryId Spotifys Category Id
+  */
+  public getCategory(categoryId: string) {
+    return this.apiGet('/browse/categories/'+categoryId, null, this.getHeaders());
+  }
+
+
+  /** @description Get a list of categories used to tag items in Spotify
+  * @param countryCode Country code in 2 char Format. If not set searches from all.
+  * @param count Amount of results returned. Defaults to 20.
+  */
+  public getCategories(countryCode?: string, count?: string) {
+    var query = "";
+    if (countryCode != null && countryCode != "") {
+      query += "?country=" + countryCode;
+    }
+    if (count != null && count != "") {
+      query += (query.length == 0) ? "?" : "&";
+      query += "limit=" + count;
+    }
+    return this.apiGet('/browse/categories' + query, null, this.getHeaders());
+  }
+
+  /** @description Get a list of Spotify playlists tagged with a particular category.
+  * @param categoryId The Spotify category ID for the category.
+  * @param countryCode Country code in 2 char Format. If not set searches from all.
+  * @param count Amount of results returned. Defaults to 20.
+  */
+  public getCategorysPlaylists(categoryId: string, countryCode?: string, count?: string) {
+    var query = "";
+    if (countryCode != null && countryCode != "") {
+      query += "?country=" + countryCode;
+    }
+    if (count != null && count != "") {
+      query += (query.length == 0) ? "?" : "&";
+      query += "limit=" + count;
+    }
+    return this.apiGet('/browse/categories/'+categoryId+'/playlists' + query, null, this.getHeaders());
   }
 
   /** @description Creates a playlist 

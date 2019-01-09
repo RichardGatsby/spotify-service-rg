@@ -75,7 +75,6 @@ export class CallbackComponent implements OnInit {
 | ------------- |
 | getTrack()      | 
 | getTracks()    | 
-|getRecommendedTracks()|
 | getAlbum()      | 
 | getAlbums()    | 
 | getAlbumsTracks() | 
@@ -84,11 +83,20 @@ export class CallbackComponent implements OnInit {
 | getArtistsAlbums() | 
 | getArtistsTopTracks() | 
 | getUser() |
+| getUserById() |
 | getUsersTopTracks()    | 
 | getUsersPlaylists()    | 
 | createPlaylist() | 
 | addTracksToPlaylist() |
 |search()|
+|getNewReleases()|
+|getRecommendedTracks()|
+|getFeaturedPlaylists()|
+|getCategory()|
+|getCategories()|
+|getCategorysPlaylists()|
+
+
 
 
 
