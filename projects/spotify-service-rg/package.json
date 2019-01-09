@@ -1,6 +1,6 @@
 {
   "name": "spotify-service-rg",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "This is a Angular service for connecting to and using Spotify API.",
   "keywords" :["Angular","Spotify", "SpotifyAPI"],
   "license" : "SEE LICENSE IN LICENSE",

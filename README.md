@@ -83,6 +83,7 @@ export class CallbackComponent implements OnInit {
 | getArtists()    | 
 | getArtistsAlbums() | 
 | getArtistsTopTracks() | 
+| getUser() |
 | getUsersTopTracks()    | 
 | getUsersPlaylists()    | 
 | createPlaylist() | 

@@ -106,6 +106,12 @@ export class SpotifyRgService {
     return this.apiGet("/artists/" + artistId + "/top-tracks?country=" + countryCode, null, this.getHeaders());
   }
 
+  /** @description Returns the user assosiated with auth token
+  */
+  public getUser() {
+    return this.apiGet('/me', null, this.getHeaders());
+  }
+
   /** @description Returns users top tracks
   * @param timeRange The range of time results are returned from. Use short_term, medium_term or long_term. Defaults to long_term.
   * @param count Amount of tracks returned. Max value 50. Defaults to 50. 
